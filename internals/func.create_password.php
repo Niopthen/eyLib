@@ -10,11 +10,6 @@
  *
  * ===============================================
  *
- * $Author$
- * $LastChangedDate$
- * $LastChangedBy$
- * $Id$
- * $Revision$
  *
  */
 
@@ -62,4 +57,3 @@ function create_password($length, $number = false, $char = false)
 
 	return $pass_word;
 }
-?>
