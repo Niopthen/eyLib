@@ -10,6 +10,7 @@
  *
  * ===============================================
  */
+require_once './eylib.config.php';
 
 class eyLib
 {
@@ -23,7 +24,8 @@ class eyLib
     function __construct()
     {
         $handle = opendir(realpath(dirname(__FILE__)) . DIRECTORY_SEPARATOR . "internals" . DIRECTORY_SEPARATOR);
-        while (false !== ($file = readdir($handle))) {
+        while (false !== ($file = readdir($handle)))
+        {
             if ($file != "." && $file != "..")
             {
                 if ((substr($file, count($file) - 4)) == "php")
@@ -34,6 +36,7 @@ class eyLib
         }
         $this->global_constants();
     }
+
     /**
      * Output of Error Information (only HTML PAGE or PAGE WITH JS)
      * @param string $Message
@@ -52,6 +55,7 @@ class eyLib
             echo "<html><head><title>SystemError</title><body>$OutputMessage</body></html>";
         }
     }
+
     /**
      *
      * @param array $data
@@ -63,6 +67,7 @@ class eyLib
     {
         return is_array($data) ? (object) array_map(__FUNCTION__, $data) : $data;
     }
+
     /**
      * Definition of global constants
      */
@@ -71,6 +76,7 @@ class eyLib
         defined("IP_ADDRESS")
                 or define("IP_ADDRESS", $_SERVER['REMOTE_ADDR']);
     }
+
     /**
      * simple email function to send information to the defined email address
      * @param string $content 
@@ -79,6 +85,7 @@ class eyLib
     {
         mail($this->ERROR_EMAIL_ADDRESS, 'EYLIB SendContent', $content);
     }
+
     /**
      *
      * write log file to the configured folder
@@ -89,9 +96,9 @@ class eyLib
     public function write_log($content, $override = FALSE)
     {
 
-        if (defined(LOG_PATH))
+        if (defined(EYLIB_LOG_PATH))
         {
-            $log_folder = LOG_PATH;
+            $log_folder = EYLIB_LOG_PATH;
         }
         else
         {
@@ -125,9 +132,10 @@ class eyLib
         }
         else
         {
-            $this->error_handler('LOG Folder is wrong', TRUE);
+            $this->error_handler(ERR_EYLIB_LOG_PATH, TRUE);
         }
     }
+
     /**
      * search if this is an simple or multidimensional array
      * @param array $array
@@ -139,7 +147,8 @@ class eyLib
         if (is_array($array))
         {
 
-            foreach (array_keys($array) as $value) {
+            foreach (array_keys($array) as $value)
+            {
                 if (is_array($array[$value]))
                 {
                     $retVal = FALSE;
@@ -148,6 +157,7 @@ class eyLib
         }
         return $retVal;
     }
+
     /**
      * check the array dimension
      * 
@@ -163,6 +173,7 @@ class eyLib
         }
         return $retVal;
     }
+
     /**
      * check the array dimension
      * 
@@ -173,7 +184,8 @@ class eyLib
     private function array_dimension_check($array, $dimension = 1)
     {
         $keys = array_keys($array);
-        foreach ($keys as $value) {
+        foreach ($keys as $value)
+        {
             if (is_array($array[$value]))
             {
                 $dimension = $dimension + 1;
@@ -183,4 +195,5 @@ class eyLib
 
         return $dimension;
     }
+
 }

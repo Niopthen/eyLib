@@ -18,24 +18,20 @@
  *
  */
 
-
 function time_to_seconds($value)
 {
-	if (strlen($value) == 8)
-	{
-		$seconds = (substr($value, 0, 2) * 60 * 60) + (substr($value, 3, 2) * 60) + (substr($value, 6, 2));
-		return $seconds;
-	}
-	elseif (strlen($value) == 5)
-	{
-		$seconds = (substr($value, 0, 2) * 60 ) + (substr($value, 3, 2));
-		return $seconds;
-	}
-	else
-	{
-		return 0;
-	}
-
+    if (strlen($value) == 8)
+    {
+        $seconds = (substr($value, 0, 2) * 60 * 60) + (substr($value, 3, 2) * 60) + (substr($value, 6, 2));
+        return $seconds;
+    }
+    elseif (strlen($value) == 5)
+    {
+        $seconds = (substr($value, 0, 2) * 60 ) + (substr($value, 3, 2));
+        return $seconds;
+    }
+    else
+    {
+        return 0;
+    }
 }
-
-?>
